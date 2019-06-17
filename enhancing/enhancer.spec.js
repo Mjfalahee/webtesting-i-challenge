@@ -13,7 +13,7 @@ const enhancer = require('./enhancer.js');
 
 
 describe('enhancer.js', () => {
-    describe('enhancer.repair()', () => {
+    describe('repair()', () => {
         it('restores durability to 100', () => {
             expect(enhancer.repair({durability: 50}).durability).toBe(100);
             expect(enhancer.repair({durability: -50}).durability).toBe(100);
@@ -21,7 +21,7 @@ describe('enhancer.js', () => {
             expect(enhancer.repair({durability: 0})).toEqual({durability: 100});
         })
     })
-    describe('enhancer.succeed()', () => {
+    describe('succeed()', () => {
         it('increases item enhancement if the level is lower than 20', () => {
             expect(enhancer.succeed({enhancement: 10}).enhancement).toBe(11);
             expect(enhancer.succeed({enhancement: 19}).enhancement).toBe(20);
@@ -29,9 +29,15 @@ describe('enhancer.js', () => {
             expect(enhancer.succeed({enhancement: 19, durability: 15})).toEqual({enhancement: 20, durability: 15});
         })
     })
-    describe('enhancer.fail()', () => {
-        it('a failed enhancement. If enhancement (ENH) < 15, durability (DUR) loses 5 points. If ENH >= 15, DUR loses 10 points, and in addition, if ENH > 16, ENH loses 1 point.', () => {
-            expect()
+    describe('fail()', () => {
+        it('a failed enhancement. If enhancement (ENH) < 15, durability (DUR) loses 5 points.', () => {
+            expect(enhancer.fail({enhancement: 10, durability: 50})).toEqual({enhancement: 10, durability: 45});
+        })
+        it('If ENH >= 15, DUR loses 10 points', () => {
+            expect(enhancer.fail({enhancement: 15, durability: 50})).toEqual({enhancement: 15, durability: 40});
+        })
+        it('and in addition, if ENH > 16, ENH loses 1 point.', () => {
+            expect(enhancer.fail({enhancement: 16, durability: 100})).toEqual({enhancement: 15, durability: 90});
         })
     }) 
 })
