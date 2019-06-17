@@ -16,11 +16,25 @@ module.exports = {
 //if the enhancement > 16, the enhancement level --
 
 function succeed(item) {
-  return { ...item };
+  let x = item.enhancement;
+  if (x < 20) {
+    x++;
+  }
+  return { ...item, enhancement: x };
 }
 
 function fail(item) {
-  return { ...item };
+  let enh = item.enhancement;
+  let dur = item.durability;
+  if (enh < 15) {
+    dur -= 5; 
+  } else if (enh === 15) {
+    dur -= 10;
+  } else if (enh > 15) {
+    enh--;
+    dur-= 10;
+  }
+  return { ...item, durability: dur, enhancement: enh };
 }
 
 function repair(item) {

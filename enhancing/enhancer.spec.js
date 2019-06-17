@@ -21,4 +21,17 @@ describe('enhancer.js', () => {
             expect(enhancer.repair({durability: 0})).toEqual({durability: 100});
         })
     })
+    describe('enhancer.succeed()', () => {
+        it('increases item enhancement if the level is lower than 20', () => {
+            expect(enhancer.succeed({enhancement: 10}).enhancement).toBe(11);
+            expect(enhancer.succeed({enhancement: 19}).enhancement).toBe(20);
+            expect(enhancer.succeed({enhancement: 1}).enhancement).toBe(2);
+            expect(enhancer.succeed({enhancement: 19})).toEqual({enhancement: 20});
+        })
+    })
+    describe('enhancer.fail()', () => {
+        it('a failed enhancement. If enhancement (ENH) < 15, durability (DUR) loses 5 points. If ENH >= 15, DUR loses 10 points, and in addition, if ENH > 16, ENH loses 1 point.', () => {
+            expect()
+        })
+    }) 
 })
