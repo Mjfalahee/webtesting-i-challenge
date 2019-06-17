@@ -26,7 +26,7 @@ describe('enhancer.js', () => {
             expect(enhancer.succeed({enhancement: 10}).enhancement).toBe(11);
             expect(enhancer.succeed({enhancement: 19}).enhancement).toBe(20);
             expect(enhancer.succeed({enhancement: 1}).enhancement).toBe(2);
-            expect(enhancer.succeed({enhancement: 19})).toEqual({enhancement: 20});
+            expect(enhancer.succeed({enhancement: 19, durability: 15})).toEqual({enhancement: 20, durability: 15});
         })
     })
     describe('enhancer.fail()', () => {
