@@ -5,9 +5,9 @@ const enhancer = require('./enhancer.js');
 //enhancement : 0 <= 20
 //durability : 0 <= 100
 
-//enhance succeeds, enhancement++. If enhancement = 20, the level isn't changed. Durability is unchanged
+// succeed() enhance succeeds, enhancement++. If enhancement = 20, the level isn't changed. Durability is unchanged
 
-//enhancement fails: if < 15, the durability decreases by 5.
+//fail () enhancement fails: if < 15, the durability decreases by 5.
 //if the enhancement >= 15, the durability -= 10
 //if the enhancement > 16, the enhancement level --
 
@@ -40,4 +40,18 @@ describe('enhancer.js', () => {
             expect(enhancer.fail({enhancement: 16, durability: 100})).toEqual({enhancement: 15, durability: 90});
         })
     }) 
+    describe('get()', () => {
+        it('An item with enh = 0 is unchanged', () => {
+            expect(enhancer.get({name: 'Iron Sword'}).name).toBe('Iron Sword');
+            expect(enhancer.get({name: 'Wooden Staff'}).name).toBe('Wooden Staff');
+        })
+        it('If item has enh > 0, the name is return with [+enh] name in place of name', () => {
+            expect(enhancer.get({name: 'Iron Sword', enhancement: 1})).toEqual({name: '[+1] Iron Sword', enhancement: 1});
+            expect(enhancer.get({name: 'Iron Sword', enhancement: 15})).toEqual({name: '[+15] Iron Sword', enhancement: 15});
+        })
+    })
 })
+
+//stretch get()
+//if enh = 0, name = name
+//if enh > 0, name = [+n] name
